@@ -1,98 +1,196 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# NestJS Clean Architecture
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A complete NestJS application with a modular, clean architecture. This project includes modules for Auth, Users, and Products, with basic CRUD APIs for Users and Products.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
+- **Modular Architecture**: Code is organized into `Auth`, `Users`, and `Products` modules.
+- **CRUD APIs**: Basic Create, Read, Update, and Delete operations for Users and Products.
+- **DTOs and Validation**: Uses Data Transfer Objects (DTOs) with `class-validator` for request validation.
+- **Repository Pattern**: Implements the repository pattern to separate business logic from data access.
+- **In-Memory Storage**: Uses in-memory arrays for data storage (no database required).
+- **Logging**: A logging middleware that logs incoming requests.
+- **Global Exception Filter**: A global filter to catch and format all exceptions.
+- **Response Interceptor**: An interceptor to format all successful responses.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Project Structure
 
-## Project setup
-
-```bash
-$ npm install
+```text
+nest-clean-architecture/
+├── src/
+│   ├── auth/                 # Auth module
+│   │   ├── constants/
+│   │   ├── dto/
+│   │   ├── auth.controller.ts
+│   │   ├── auth.module.ts
+│   │   └── auth.service.ts
+│   ├── users/                # Users module
+│   │   ├── dto/
+│   │   ├── entities/
+│   │   ├── repositories/
+│   │   ├── users.controller.ts
+│   │   ├── users.module.ts
+│   │   └── users.service.ts
+│   ├── products/             # Products module
+│   │   ├── dto/
+│   │   ├── entities/
+│   │   ├── repositories/
+│   │   ├── products.controller.ts
+│   │   ├── products.module.ts
+│   │   └── products.service.ts
+│   ├── common/               # Common features
+│   │   ├── filters/
+│   │   ├── interceptors/
+│   │   └── middleware/
+│   ├── app.controller.ts
+│   ├── app.module.ts
+│   ├── app.service.ts
+│   └── main.ts
+├── test/
+├── .gitignore
+├── .prettierrc
+├── nest-cli.json
+├── package.json
+├── README.md
+├── tsconfig.build.json
+└── tsconfig.json
 ```
 
-## Compile and run the project
+## Installation
 
-```bash
-# development
-$ npm run start
+1. Clone the repository:
 
-# watch mode
-$ npm run start:dev
+   ```bash
+   git clone https://github.com/your-username/nest-clean-architecture.git
+   cd nest-clean-architecture
+   ```
 
-# production mode
-$ npm run start:prod
-```
+2. Install the dependencies:
 
-## Run tests
+   ```bash
+   npm install
+   ```
 
-```bash
-# unit tests
-$ npm run test
+## Running the App
 
-# e2e tests
-$ npm run test:e2e
+- **Development mode**:
 
-# test coverage
-$ npm run test:cov
-```
+  ```bash
+  npm run start
+  ```
 
-## Deployment
+- **Watch mode**:
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+  ```bash
+  npm run start:dev
+  ```
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+- **Production mode**:
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+  ```bash
+  npm run start:prod
+  ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+The application will be available at `http://localhost:3000`.
 
-## Resources
+## Running Tests
 
-Check out a few resources that may come in handy when working with NestJS:
+- **Unit tests**:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+  ```bash
+  npm run test
+  ```
 
-## Support
+- **End-to-end tests**:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+  ```bash
+  npm run test:e2e
+  ```
 
-## Stay in touch
+- **Test coverage**:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+  ```bash
+  npm run test:cov
+  ```
 
-## License
+## API Endpoints
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+All endpoints are prefixed with `/api/v1`.
+
+### Auth
+
+- **POST /auth/login**
+  - **Description**: Authenticates a user and returns a JWT token.
+  - **Body**:
+
+    ```json
+    {
+      "email": "user@example.com",
+      "password": "password123"
+    }
+    ```
+
+### Users
+
+- **POST /users**
+  - **Description**: Creates a new user.
+  - **Body**:
+
+    ```json
+    {
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "password": "password123"
+    }
+    ```
+
+- **GET /users**
+  - **Description**: Retrieves all users.
+
+- **GET /users/:id**
+  - **Description**: Retrieves a single user by their ID.
+
+- **PATCH /users/:id**
+  - **Description**: Updates a user's information.
+  - **Body**:
+
+    ```json
+    {
+      "name": "Johnathan Doe"
+    }
+    ```
+
+- **DELETE /users/:id**
+  - **Description**: Deletes a user by their ID.
+
+### Products
+
+- **POST /products**
+  - **Description**: Creates a new product.
+  - **Body**:
+
+    ```json
+    {
+      "name": "Example Product",
+      "price": 99.99
+    }
+    ```
+
+- **GET /products**
+  - **Description**: Retrieves all products.
+
+- **GET /products/:id**
+  - **Description**: Retrieves a single product by its ID.
+
+- **PATCH /products/:id**
+  - **Description**: Updates a product's information.
+  - **Body**:
+
+    ```json
+    {
+      "price": 129.99
+    }
+    ```
+
+- **DELETE /products/:id**
+  - **Description**: Deletes a product by their ID.
